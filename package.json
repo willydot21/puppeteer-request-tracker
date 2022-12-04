@@ -4,9 +4,16 @@
   "description": "",
   "main": "main.ts",
   "scripts": {
-    "dev": "tsc && node ./dist/src/main.js"
+    "build": "tsc",
+    "test": "tsc && node dist/src/test.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "7.0.4"
+  }
 }
