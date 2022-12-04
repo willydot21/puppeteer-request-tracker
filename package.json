@@ -1,0 +1,12 @@
+{
+  "name": "puppeteer-request-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "dev": "tsc && node ./dist/src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
