@@ -1,5 +1,4 @@
 import { Page } from "puppeteer";
-import { RequestStack } from "../../@types/request-tracker";
 import TrackerQueue from "./tracker-queue";
 
 export default class RequestTracker {
@@ -21,6 +20,14 @@ export default class RequestTracker {
 
   public getPending() {
     return this.trackerQueue.getPending();
+  }
+
+  private printStack() {
+
+    const stack = this.getStack();
+
+    console.table(stack);
+
   }
 
 }

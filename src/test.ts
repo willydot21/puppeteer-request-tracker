@@ -3,7 +3,7 @@ import RequestTracker from "../main";
 
 async function test() {
 
-  const url = 'https://www.youtube.com/';
+  const url = 'https://tioanime.com/';
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -12,9 +12,9 @@ async function test() {
 
   await page.goto(url, {
     waitUntil: 'networkidle0'
-  });
+  }).catch(error => console.log(error));
 
-  tracker.getStack();
+  console.log(tracker.getStack().length);
 
 }
 

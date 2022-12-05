@@ -10,6 +10,7 @@ export default class TrackerQueue {
 
   public async build(page: Page) {
 
+    page.setDefaultNavigationTimeout(0)
     await page.setRequestInterception(true);
 
     page.on('request', request =>
