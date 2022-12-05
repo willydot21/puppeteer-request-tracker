@@ -14,9 +14,7 @@ async function test() {
     waitUntil: 'networkidle0'
   });
 
-  console.log({
-    length: tracker.requestStack.length
-  });
+  tracker.getStack();
 
 }
 
