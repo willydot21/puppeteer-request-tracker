@@ -29,6 +29,7 @@ export default class TrackerEventController {
 
   private onRequest(request: HTTPRequest) {
     this.eventHandler.onRequest(request);
+    // now here can execute other handlers...
   }
 
   private async onRequestFinished(request: HTTPRequest) {
