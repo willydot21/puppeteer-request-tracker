@@ -11,3 +11,5 @@ export interface IRequestInfo {
 export type PausedRequestHandler = () => Promise<void>;
 export type PendingQueue = PausedRequestHandler[];
 export type RequestStack = IRequestInfo[];
+
+export type NotifyHandler = () => Promise<void> | void;

@@ -10,12 +10,6 @@ async function test() {
   const tracker = new RequestTracker(page);
   await tracker.build();
 
-  await page.goto(url, {
-    waitUntil: 'networkidle0'
-  }).catch(error => console.log(error));
-
-  console.log(tracker.getStack().length);
-
 }
 
 test();

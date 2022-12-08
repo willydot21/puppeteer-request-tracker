@@ -1,6 +1,4 @@
-import { HTTPRequest, Page } from "puppeteer";
-import { PausedRequestHandler, PendingQueue, RequestStack } from "../../@types/request-tracker";
-import { getRequestInfo } from "./utils";
+import { IRequestInfo, PausedRequestHandler, PendingQueue, RequestStack } from "../../@types/request-tracker";
 
 export default class TrackerQueue {
 
@@ -8,69 +6,27 @@ export default class TrackerQueue {
   private finished = [] as RequestStack;
   private paused = false;
 
-  public async build(page: Page) {
-
-    page.setDefaultNavigationTimeout(0)
-    await page.setRequestInterception(true);
-
-    page.on('request', request =>
-      this.onRequest(request));
-
-    page.on('requestfinished', request =>
-      this.onRequestFinished(request));
-
-    page.on('requestfailed', () =>
-      this.onRequestFailed());
-
-    return this;
-  }
-
   public getPending() { return this.pendingQueue; }
 
   public getFinished() { return this.finished; }
 
   public isPaused() { return this.paused; }
 
-  private nextRequest() {
-
-    const isPendingEmpty = this.pendingQueue.length === 0;
-
-    if (!isPendingEmpty) {
-      const doNextRequest = this.pendingQueue.shift() as PausedRequestHandler; // it's always not empty.
-      doNextRequest();
-      return;
-    }
-
-    this.paused = false;
-
+  public updatePending(pausedHandler: PausedRequestHandler) {
+    this.pendingQueue.push(pausedHandler);
   }
 
-  private onRequest(request: HTTPRequest) {
-
-    if (!this.paused) {
-      this.paused = true;
-      request.continue();
-      return;
-    }
-
-    this.pendingQueue.push(() => request.continue());
-
+  public nextPending() {
+    const doNextPending = this.pendingQueue.shift() as PausedRequestHandler;
+    doNextPending();
   }
 
-  private async onRequestFinished(request: HTTPRequest) {
-
-    const requestInfo = await getRequestInfo(request);
+  public updateFinished(requestInfo: IRequestInfo) {
     this.finished.push(requestInfo);
-
-    this.nextRequest();
-
   }
 
-  private onRequestFailed() { this.nextRequest(); }
+  public updatePaused(paused: boolean) {
+    this.paused = paused;
+  }
 
 }
-
-/*
-  reference:
-    https://stackoverflow.com/questions/52969381/how-can-i-capture-all-network-requests-and-full-response-data-when-loading-a-pag
-*/
