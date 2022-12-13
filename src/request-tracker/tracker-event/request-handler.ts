@@ -2,7 +2,7 @@ import { HTTPRequest } from "puppeteer";
 import TrackerQueue from "../tracker-queue";
 import { getRequestInfo } from "../utils";
 
-export default class ControllerEventHandler {
+export default class ControllerRequestHandler {
 
   private trackerQueue: TrackerQueue;
 

@@ -1,30 +1,26 @@
 import { Page } from 'puppeteer';
-import TrackerEventController from './tracker-event-controller';
+import TrackerEvent from './tracker-event';
 import TrackerQueue from './tracker-queue';
+import { EventHandler, EventName } from '../../@types/request-event-queue';
+import EventQueue from './tracker-event/event-queue';
 
 export default class RequestTracker {
 
   private page: Page;
+  private eventQueue = new EventQueue();
   private trackerQueue = new TrackerQueue();
-  private trackerEventController = new TrackerEventController(this.trackerQueue);
+  private trackerEvent = new TrackerEvent(this.trackerQueue, this.eventQueue);
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  public notify() {
-
-    // We need that tracker queue emit 
-    // an event to capture each change
-    // on queue lists.
-
+  public on(event: EventName, handler: EventHandler) {
+    this.eventQueue.add(event, handler);
   }
 
   public async build() {
-
-    await this.trackerEventController
-      .build(this.page);
-
+    await this.trackerEvent.build(this.page);
   }
 
   public getStack() {
