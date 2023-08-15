@@ -1,5 +1,4 @@
 import { HTTPRequest, HTTPResponse } from "puppeteer";
-import { IRequestInfo } from "../../@types/request-tracker";
 
 async function getResponseBody(response: HTTPResponse, request: HTTPRequest) {
 

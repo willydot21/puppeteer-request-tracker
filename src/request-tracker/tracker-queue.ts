@@ -1,4 +1,4 @@
-import { IRequestInfo, PausedRequestHandler, PendingQueue, RequestStack } from "../../@types/request-tracker";
+import { IRequestInfo, PausedRequestHandler, PendingQueue, RequestStack } from "../../@types/tracker-queue";
 
 export default class TrackerQueue {
 

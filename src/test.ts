@@ -7,8 +7,7 @@ async function test() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  const tracker = new RequestTracker(page);
-  await tracker.build();
+  const tracker = await RequestTracker.create(page);
 
 }
 

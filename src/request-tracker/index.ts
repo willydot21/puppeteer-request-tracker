@@ -15,12 +15,14 @@ export default class RequestTracker {
     this.page = page;
   }
 
-  public on(event: EventName, handler: EventHandler) {
-    this.eventQueue.add(event, handler);
+  static async create(page: Page) {
+    const instance = new RequestTracker(page);
+    await instance.trackerEvent.build(page);
+    return instance
   }
 
-  public async build() {
-    await this.trackerEvent.build(this.page);
+  public on(event: EventName, handler: EventHandler) {
+    this.eventQueue.add(event, handler);
   }
 
   public getStack() {
